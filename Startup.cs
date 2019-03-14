@@ -33,7 +33,7 @@ namespace DotNetCoreSqlDb
                         options.UseSqlServer(Configuration.GetConnectionString("MyDbConnection")));
             else
                 services.AddDbContext<MyDatabaseContext>(options =>
-                        options.UseSqlite("Data Source=MvcMovie.db")); //prob should chage this to local
+                        options.UseSqlite("Data Source=localdatabase.db")); //prob should chage this to local
 
             // Automatically perform database migration
             services.BuildServiceProvider().GetService<MyDatabaseContext>().Database.Migrate();
