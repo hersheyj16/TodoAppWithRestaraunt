@@ -5,12 +5,14 @@ using Microsoft.Extensions.DependencyInjection;
 using System.Device.Location;
 using Yelp.Api;
 using System.Text;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DotNetCoreSqlDb.Models
 {
     public class SeedData
     {
-        public static void Initialize(IServiceProvider serviceProvider)
+        public static async void InitializeAsync(IServiceProvider serviceProvider)
         {
             using (var context = new MyDatabaseContext(
             serviceProvider.GetRequiredService<DbContextOptions<MyDatabaseContext>>()))
@@ -26,52 +28,18 @@ namespace DotNetCoreSqlDb.Models
                     Console.WriteLine("JENNYLIA YELP API DEBUG");
                     Console.WriteLine(YELP_API);
 
-
-                    //GeoCoordinateWatcher watcher = new GeoCoordinateWatcher();
-
                     var client = new Yelp.Api.Client(YELP_API);
-                    GetResultsFromYelpAsync(client, context);
+                    List<Restaurant> results = new List<Restaurant>();
+                    await GetResultsFromYelpAsync(client, results);
 
-                    //context.Restaurants.Add(new Restaurant
-                    //{
-                    //    Name = Name,
-                    //    ImageUrl = ImageUrl,
-                    //    Phone = Phone,
-                    //    Url = Url,
-                    //    Rating = Rating,
-                    //    Latitude = Latitude,
-                    //    Longitude = Longitude,
-                    //    Address = address
-                    //});
-                    context.Restaurants.AddRange(new Restaurant
-                    {
-                        Name = "a",
-                        ImageUrl = "b",
-                        Phone = "c",
-                        Url = "Url",
-                        Rating = 1,
-                        Latitude = 0.1,
-                        Longitude = 0.2,
-                        Address = "Url"
-                    });
+                    context.Restaurants.AddRange(results);
                     context.SaveChanges();
                 }
-
             }
         }
-        /*
-         *     
-         * public int ID { get; set; }
-        public string ImageUrl { get; set; }
-        public string Phone { get; set; }
-        public string Url { get; set; }
-        public float Rating { get; set; }
-        double Latitude { get; set; }
-        double Longitude { get; set; }
-        public string Address { get; set; }       
-         */
 
-        private static async void GetResultsFromYelpAsync(Client client, MyDatabaseContext context)
+        //GeoCoordinateWatcher watcher = new GeoCoordinateWatcher();
+        public static async Task GetResultsFromYelpAsync(Client client, List<Restaurant> data)
         {
             var results = await client.SearchBusinessesAllAsync("food", 47.606209, -122.332069);
 
@@ -103,10 +71,17 @@ namespace DotNetCoreSqlDb.Models
                 Console.WriteLine(address);
                 Console.WriteLine("======(\"======\")(\"======\")(\"======\")(\"======\")");
 
+                Restaurant r = new Restaurant();
+                r.Name = Name;
+                r.ImageUrl = ImageUrl;
+                r.Phone = Phone;
+                r.Url = Url;
+                r.Rating = Rating;
+                r.Latitude = Latitude;
+                r.Longitude = Longitude;
 
+                data.Add(r);
             }
         }
-
-
     }
 }

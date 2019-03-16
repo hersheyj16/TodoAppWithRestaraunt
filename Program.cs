@@ -22,7 +22,7 @@ namespace DotNetCoreSqlDb
                 try
                 {
                     var context = services.GetRequiredService<MyDatabaseContext>();
-                    SeedData.Initialize(services);
+                    SeedData.InitializeAsync(services);
                 }
                 finally
                 {
