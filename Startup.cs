@@ -62,7 +62,7 @@ namespace DotNetCoreSqlDb
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Todos}/{action=Index}/{id?}");
+                    template: "{controller=Restaurant}/{action=Index}/{id?}");
             });
         }
     }

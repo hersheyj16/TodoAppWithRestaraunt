@@ -17,3 +17,10 @@ See [LICENSE](LICENSE.md).
 
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
   
+  
+### Tips and stuff
+
+Scaffolding
+```
+dotnet aspnet-codegenerator controller -name RestaurantController -m Restaurant -dc MyDatabaseContext --relativeFolderPath Controllers --useDefaultLayout --referenceScriptLibraries
+```
