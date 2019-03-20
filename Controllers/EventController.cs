@@ -21,6 +21,8 @@ namespace DotNetCoreSqlDb.Controllers
         // GET: Event
         public async Task<IActionResult> Index()
         {
+            //_context.Event.ToListAsync()
+            //var EventContext = _context.Event.Include(e => e.Choices).Include(e => e.)
             return View(await _context.Event.ToListAsync());
         }
 
@@ -39,6 +41,12 @@ namespace DotNetCoreSqlDb.Controllers
                 return NotFound();
             }
 
+            //var Choices = await _context.Choice.Include(c => c.EventID == id).ToListAsync();
+            IQueryable<Choice> choiceQuery = from c in _context.Choice
+                                             where c.EventID == id
+                                             select c;
+
+            ViewBag.Choices = await choiceQuery.Distinct().ToListAsync();
             return View(@event);
         }
 

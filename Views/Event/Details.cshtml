@@ -22,3 +22,10 @@
     <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+
+<span>
+    @foreach(var choice in ViewBag.Choices){
+    <h2>Suggested by: @choice.Suggester </h2>
+    <h2>@choice.Restaurant.Name</h2> 
+    }
+</span>

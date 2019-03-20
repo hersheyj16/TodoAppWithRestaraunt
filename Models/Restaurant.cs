@@ -4,7 +4,7 @@ namespace DotNetCoreSqlDb.Models
     public class Restaurant
     {
         public int ID { get; set; }
-    public string Name { get; set; }
+        public string Name { get; set; }
         public string ImageUrl { get; set; }
         public string Phone { get; set; }
         public string Url { get; set; }

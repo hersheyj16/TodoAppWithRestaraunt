@@ -7,7 +7,8 @@ namespace DotNetCoreSqlDb.Models
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        public List<Choice> Choices { get; set; }
         public string Notes { get; set; }
+        public virtual List<Choice> Choices { get; set; }
+
     }
 }
