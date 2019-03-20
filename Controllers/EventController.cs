@@ -42,11 +42,21 @@ namespace DotNetCoreSqlDb.Controllers
             }
 
             //var Choices = await _context.Choice.Include(c => c.EventID == id).ToListAsync();
-            IQueryable<Choice> choiceQuery = from c in _context.Choice
+            var choiceQuery = from c in _context.Choice
+                                             join r in _context.Restaurants on c.RestaurantID equals r.ID
                                              where c.EventID == id
-                                             select c;
+                                             select new{c ,r};
 
-            ViewBag.Choices = await choiceQuery.Distinct().ToListAsync();
+            List<EventChoice> eventChoices = new List<EventChoice>();
+
+            var Choices = await choiceQuery.Distinct().ToListAsync();
+            foreach (var ans in Choices)
+            {
+                var e = new EventChoice(ans.c, ans.r);
+                eventChoices.Add(e);
+            }
+            ViewBag.Choices = Choices;
+            ViewBag.EventChoices = eventChoices;
             return View(@event);
         }
 

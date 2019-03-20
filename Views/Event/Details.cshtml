@@ -24,8 +24,13 @@
 </div>
 
 <span>
-    @foreach(var choice in ViewBag.Choices){
-    <h2>Suggested by: @choice.Suggester </h2>
-    <h2>@choice.Restaurant.Name</h2> 
-    }
+
+    @foreach (var e in ViewBag.EventChoices)
+    {
+    <h4>@e.restaurant.Name | <a asp-action="Delete" asp-controller="Choice" asp-route-id="@e.choice.ID">Delete</a> </h4>  
+
+       
+<h5>Suggested by @e.choice.Suggester</h5>
+
+}
 </span>
