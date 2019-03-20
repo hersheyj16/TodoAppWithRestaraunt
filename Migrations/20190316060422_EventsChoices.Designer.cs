@@ -3,52 +3,20 @@ using System;
 using DotNetCoreSqlDb.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DotNetCoreSqlDb.Migrations
 {
     [DbContext(typeof(MyDatabaseContext))]
-    partial class MyDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20190316060422_EventsChoices")]
+    partial class EventsChoices
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.1.4-rtm-31024");
-
-            modelBuilder.Entity("DotNetCoreSqlDb.Models.Choice", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<int>("EventID");
-
-                    b.Property<int>("RestaurantID");
-
-                    b.Property<string>("Suggester");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("EventID");
-
-                    b.HasIndex("RestaurantID");
-
-                    b.ToTable("Choice");
-                });
-
-            modelBuilder.Entity("DotNetCoreSqlDb.Models.Event", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("Notes");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Event");
-                });
 
             modelBuilder.Entity("DotNetCoreSqlDb.Models.Restaurant", b =>
                 {
@@ -90,19 +58,6 @@ namespace DotNetCoreSqlDb.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Todo");
-                });
-
-            modelBuilder.Entity("DotNetCoreSqlDb.Models.Choice", b =>
-                {
-                    b.HasOne("DotNetCoreSqlDb.Models.Event", "Event")
-                        .WithMany("Choices")
-                        .HasForeignKey("EventID")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("DotNetCoreSqlDb.Models.Restaurant", "Restaurant")
-                        .WithMany()
-                        .HasForeignKey("RestaurantID")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

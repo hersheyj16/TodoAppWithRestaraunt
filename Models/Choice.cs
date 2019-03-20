@@ -9,6 +9,5 @@ namespace DotNetCoreSqlDb.Models
         public virtual Restaurant Restaurant { get; set; }
         public int EventID { get; set; }
         public virtual Event Event { get; set; }
-
     }
 }
